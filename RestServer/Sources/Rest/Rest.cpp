@@ -2,8 +2,9 @@
 // Created by Victor Sousa on 28/09/2019.
 //
 
+#include <SharedLib.h>
+#include <ARouter.h>
 #include "Rest/Rest.h"
-#include "Rest/Router.h"
 
 namespace API {
 
@@ -11,7 +12,7 @@ namespace API {
     boost::asio::posix::stream_descriptor Rest::out{Rest::ioc, ::dup(STDERR_FILENO)};
     boost::asio::signal_set Rest::sig_set(Rest::ioc, SIGINT, SIGTERM);
 
-    Rest::Rest(unsigned short port, const std::string &className): AClass(className), _port(port) {
+    Rest::Rest(std::string const &baseRouterPath, unsigned short port, const std::string &className): AClass(className), _port(port), _baseRouterPath(baseRouterPath) {
 
     }
 
@@ -22,8 +23,9 @@ namespace API {
     void Rest::run() {
 
         server::http::basic_router<server::http::reactor::_default::session_type> router{std::regex::ECMAScript};
-        Router baseRouter;
-        router.use("", baseRouter.get());
+
+        SharedLib<API::IRouter> baseRouter(this->_baseRouterPath);
+        router.use("", baseRouter.get().get());
 
         // Error and warning handler
         const auto& onError = [](auto system_error_code, auto from) {

@@ -5,15 +5,15 @@
 #ifndef CPP_RESTAPI_APIROUTER_H
 #define CPP_RESTAPI_APIROUTER_H
 
-#include "Rest/Router.h"
+#include "ARouter.h"
 #include "Comments/CommentsRouter.h"
 
 namespace API {
 
-    class ApiRouter : public Router {
+    class ApiRouter : public ARouter {
 
     public:
-        ApiRouter(std::string const &className = "ApiRouter") : Router(className) {
+        ApiRouter(std::string const &className = "ApiRouter") : ARouter(className) {
 
         }
 

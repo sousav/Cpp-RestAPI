@@ -18,6 +18,8 @@
 
 #include "AClass.h"
 
+#include "Database.h"
+
 namespace beast = boost::beast;
 namespace server = _0xdead4ead;
 
@@ -26,12 +28,13 @@ namespace API {
     class Rest: public AClass {
 
     public:
-        Rest(unsigned short port, std::string const &className = "Rest");
+        Rest(std::string const &baseRouterPath, unsigned short port, std::string const &className = "Rest");
         ~Rest();
 
         void run();
 
     private:
+        std::string _baseRouterPath;
         unsigned short const _port;
 
     private:

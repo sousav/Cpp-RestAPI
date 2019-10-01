@@ -23,7 +23,7 @@ ArgParser::parser MainClass::setupArgParser() const {
     return ArgParser::parser {{
         { "help", {"-h", "--help"}, "Shows this help message.\n", 0},
         { "port", {"-p", "--port"}, KRED + "[required]" + KNRM + " Set the server port.\n", 1},
-        { "address", {"-a", "--address"}, KRED + "[required]" + KNRM + " Set the server address.\n", 1}
+        { "router", {"-r", "--router"}, KRED + "[required]" + KNRM + " Set the base router library path.\n", 1}
     }};
 }
 
@@ -33,7 +33,7 @@ bool MainClass::Run(ArgParser::parser_results const &args) {
         return false;
     }
 
-    API::Rest server(args["port"].as<u_short>());
+    API::Rest server(args["router"].as<std::string>(), args["port"].as<u_short>());
 
     server.run();
 
@@ -51,8 +51,8 @@ bool MainClass::checkArgument(ArgParser::parser_results const &args) const {
         return false;
     }
 
-    if (!args["address"]) {
-        ArgParser::fmt_ostream(std::cerr) << KRED + "\nYou must provide a server address using -a or --address\n" + KNRM << std::endl << this->setupArgParser();
+    if (!args["router"]) {
+        ArgParser::fmt_ostream(std::cerr) << KRED + "\nYou must provide a base router library path using using -r or --router\n" + KNRM << std::endl << this->setupArgParser();
         return false;
     }
 
