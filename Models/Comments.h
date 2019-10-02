@@ -16,8 +16,7 @@ namespace DB {
             this->fromBSON(view);
         }
 
-        Comments(std::string const &id = "undefined", std::string const &comment = ""): AModel("Comments") {
-            this->_id = id;
+        Comments(std::string const &comment = "", std::string const &id = "undefined"): AModel(id, "Comments") {
             this->_comment = comment;
         }
 
@@ -26,14 +25,15 @@ namespace DB {
         }
 
         virtual Json::json toJson() const {
-            return Json::json{
-                {"comment", this->getComment()},
-                {"_id", this->getId()},
+            Json::json j{
+                    {"comment", this->getComment()},
             };
+            j.merge_patch(AModel::toJson());
+            return j;
         }
 
         virtual void fromJson(Json::json const &json) {
-            this->_id = json["_id"]["$oid"];
+            AModel::fromJson(json);
             this->_comment = json.at("comment");
         }
 
@@ -42,12 +42,7 @@ namespace DB {
             return this->_comment;
         }
 
-        std::string const &getId() const {
-            return this->_id;
-        }
-
     private:
-        std::string _id;
         std::string _comment;
 
     };

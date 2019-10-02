@@ -8,8 +8,8 @@
 #include <boost/asio/posix/stream_descriptor.hpp>
 #include <boost/asio/signal_set.hpp>
 
-#include <http/reactor/listener.hxx>
 #include <http/reactor/session.hxx>
+#include <http/reactor/listener.hxx>
 #include <http/basic_router.hxx>
 #include <http/out.hxx>
 

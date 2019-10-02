@@ -44,6 +44,13 @@ endif()
 include_directories(${PROJECT_SOURCE_DIR}/RestServer/Lib/RestRouter/Includes)
 
 
+## Setup RestRouter library
+if (NOT TARGET RestValidator)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/RestServer/Lib/RestValidator)
+endif()
+include_directories(${PROJECT_SOURCE_DIR}/RestServer/Lib/RestValidator/Includes)
+
+
 ## Setup the source files
 add_library(${NAME} SHARED "")
 
@@ -53,8 +60,12 @@ target_sources(${NAME}
 
         ${PROJECT_SOURCE_DIR}/BaseRouter.h
         ${PROJECT_SOURCE_DIR}/BaseRouter.cpp
+
         ${PROJECT_SOURCE_DIR}/Routes/ApiRouter.h
+
         ${PROJECT_SOURCE_DIR}/Routes/Comments/CommentsRouter.h
+        ${PROJECT_SOURCE_DIR}/Routes/Comments/CommentsController.h
+        ${PROJECT_SOURCE_DIR}/Routes/Comments/CommentsValidator.h
         )
 
 
@@ -82,6 +93,7 @@ link_directories(
 ## Setup used library
 target_link_libraries(${NAME}
         RestRouter
+        RestValidator
         MongoLink
 
         Boost::system

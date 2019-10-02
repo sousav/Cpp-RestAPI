@@ -7,8 +7,8 @@
 
 namespace DB {
 
-    AModel::AModel(std::string const &className) : AClass(className), ACollection(className) {
-
+    AModel::AModel(std::string const &id, std::string const &className) : AClass(className), ACollection(className) {
+        this->_id = id;
     }
 
     AModel::~AModel() {
@@ -16,10 +16,15 @@ namespace DB {
     }
 
     Json::json AModel::toJson() const {
-        return Json::json();
+        return this->_id == "undefined" ? R"({
+            "_id": null
+        })"_json : Json::json{
+                {"_id", this->_id},
+        };
     }
 
     void AModel::fromJson(Json::json const &json) {
+        this->_id = json["_id"]["$oid"];
     }
 
     void AModel::fromBSON(bsoncxx::document::view const &view) {
@@ -29,6 +34,10 @@ namespace DB {
     bsoncxx::document::value AModel::toBSON() const {
         Json::json j = *this;
         return bsoncxx::from_json(j.dump());
+    }
+
+    std::string const &AModel::getId() const {
+        return this->_id;
     }
 
     void to_json(Json::json &j, const AModel &c) {

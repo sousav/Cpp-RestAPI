@@ -56,7 +56,7 @@ set(Sources
 
         ${PROJECT_SOURCE_DIR}/Includes/Rest/Rest.h
         ${PROJECT_SOURCE_DIR}/Sources/Rest/Rest.cpp
-        )
+        Lib/RestValidator/Includes/Validator.h Lib/RestValidator/Sources/Validator.cpp)
 
 
 ## Setup default include path

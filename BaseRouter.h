@@ -28,10 +28,10 @@ namespace API {
             this->_router.use("^/api$", apiRouter.get());
 
             this->_router.all(R"(^.*$)", [](auto beast_http_request, auto context) {
-                context.send(API::ARouter::make_404<beast::http::string_body>(beast_http_request, Json::json{
+                context.send(API::ARouter::send(beast_http_request, Json::json{
                         {"result", false},
                         {"status", "Endpoint not found."}
-                }.dump(), "application/json"));
+                }.dump(), status_code::not_found, "application/json"));
             });
         }
 

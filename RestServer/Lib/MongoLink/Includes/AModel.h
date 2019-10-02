@@ -14,7 +14,7 @@ namespace DB {
     class AModel: public AClass, public IModel, public ACollection {
 
     public:
-        AModel(std::string const &className = "AModel");
+        AModel(std::string const &id = "undefined", std::string const &className = "AModel");
         virtual ~AModel();
 
         virtual Json::json toJson() const;
@@ -23,6 +23,13 @@ namespace DB {
     protected:
         virtual void fromBSON(bsoncxx::document::view const &view);
         virtual bsoncxx::document::value toBSON() const;
+
+    public:
+    public:
+        std::string const &getId() const;
+
+    protected:
+        std::string _id;
 
     };
 
