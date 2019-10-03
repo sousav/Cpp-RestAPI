@@ -25,6 +25,9 @@ namespace DB {
     private:
         virtual bsoncxx::document::value toBSON() const = 0;
 
+    protected:
+        virtual void setId(std::string const &id) = 0;
+
     };
 
 }

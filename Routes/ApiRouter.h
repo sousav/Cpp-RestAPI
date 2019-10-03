@@ -6,7 +6,7 @@
 #define CPP_RESTAPI_APIROUTER_H
 
 #include "ARouter.h"
-#include "Comments/CommentsRouter.h"
+#include "Tests/TestsRouter.h"
 
 namespace API {
 
@@ -24,8 +24,8 @@ namespace API {
     protected:
         virtual void init() {
 
-            CommentsRouter commentsRouter;
-            this->_router.use("^/comments$", commentsRouter.get());
+            TestsRouter testsRouter;
+            this->_router.use("^/tests$", testsRouter.get());
 
         }
 

@@ -30,6 +30,7 @@ namespace DB {
 
     protected:
         std::string _id;
+        void setId(std::string const &id);
 
     };
 

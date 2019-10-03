@@ -24,6 +24,8 @@ namespace DB {
 
     bool ACollection::save() {
         bsoncxx::stdx::optional<mongocxx::result::insert_one> result = this->_collection.insert_one(this->toBSON());
+        this->setId(result.value().inserted_id().get_oid().value.to_string());
+
         return result.value().result().inserted_count() > 0;
     }
 

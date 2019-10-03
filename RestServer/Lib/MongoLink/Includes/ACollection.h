@@ -39,6 +39,9 @@ namespace DB {
         std::string _collectionName;
         mongocxx::collection _collection;
 
+    protected:
+        virtual void setId(std::string const &id) = 0;
+
     };
 
 }

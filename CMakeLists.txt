@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 add_subdirectory(./RestServer)
 
-set(NAME CommentsAPI)
+set(NAME TestAPI)
 
 project(${NAME})
 
@@ -63,9 +63,15 @@ target_sources(${NAME}
 
         ${PROJECT_SOURCE_DIR}/Routes/ApiRouter.h
 
-        ${PROJECT_SOURCE_DIR}/Routes/Comments/CommentsRouter.h
-        ${PROJECT_SOURCE_DIR}/Routes/Comments/CommentsController.h
-        ${PROJECT_SOURCE_DIR}/Routes/Comments/CommentsValidator.h
+        ${PROJECT_SOURCE_DIR}/Routes/Tests/TestsRouter.h
+
+        ${PROJECT_SOURCE_DIR}/Routes/Tests/RestRouting/RestRoutingRouter.h
+        ${PROJECT_SOURCE_DIR}/Routes/Tests/RestRouting/RestRoutingController.h
+        ${PROJECT_SOURCE_DIR}/Routes/Tests/RestRouting/RestRoutingValidator.h
+
+        ${PROJECT_SOURCE_DIR}/Routes/Tests/Validator/ValidatorRouter.h
+        ${PROJECT_SOURCE_DIR}/Routes/Tests/Validator/ValidatorController.h
+        ${PROJECT_SOURCE_DIR}/Routes/Tests/Validator/ValidatorValidator.h
         )
 
 

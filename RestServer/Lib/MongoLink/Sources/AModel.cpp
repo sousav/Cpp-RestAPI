@@ -40,6 +40,10 @@ namespace DB {
         return this->_id;
     }
 
+    void AModel::setId(std::string const &id) {
+        this->_id = id;
+    }
+
     void to_json(Json::json &j, const AModel &c) {
         j = c.toJson();
     }
